@@ -1,0 +1,63 @@
+﻿@model image.Models.VMclass
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("index","Home",FormMethod.Post, new { enctype="multipart/form-data" }))
+{
+    <h1>Upload Image</h1>
+    @Html.TextBoxFor(m => m.m_title_name , new { @class="form-control" })
+    <input type="file" name="file" value="Browse" onchange="loadfile(event)" @*id="imageBrowes"*@ multiple />
+
+    <div id="imgPreview" class="thumbnail" style="display:none">
+        <div id="dynamicImage">
+
+        </div>
+        <div class="caption">
+            <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+            <span id="description"></span>
+        </div>
+    </div>
+
+    <input type="submit" value="upload" />
+
+    <div class="form-group">
+        
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    
+
+    var loadfile = function (event) {
+
+        var files = event.target.files;
+        $("#imgPreview").show();
+        for (var i = 0; i < files.length; i++) {
+            $("#dynamicImage").append("<img src='" + URL.createObjectURL(event.target.files[i]) + "' class='dynamicimg' <br />");
+        }
+    }
+
+    var ClearPreview = function () {
+        //$("#imageBrowes").val('');
+        $("#description").text('');
+        $("#imgPreview").hide();
+
+    }
+
+
+
+</script>
+
+<style>
+    .dynamicimg{
+        height:30px;
+        width:100px;
+        margin-left:20px;
+    }
+</style>
